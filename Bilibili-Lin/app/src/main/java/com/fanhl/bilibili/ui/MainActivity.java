@@ -21,8 +21,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
+import com.fanhl.bilibili.ui.base.BaseActivity;
 
-public class MainActivity extends AbsActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;

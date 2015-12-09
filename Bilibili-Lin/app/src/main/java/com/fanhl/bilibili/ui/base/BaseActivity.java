@@ -1,4 +1,4 @@
-package com.fanhl.bilibili.ui;
+package com.fanhl.bilibili.ui.base;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import com.fanhl.bilibili.R;
 /**
  * Created by fanhl on 15/12/9.
  */
-public abstract class AbsActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
