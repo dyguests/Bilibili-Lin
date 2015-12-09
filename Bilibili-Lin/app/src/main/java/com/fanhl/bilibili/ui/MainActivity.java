@@ -1,4 +1,4 @@
-package com.fanhl.bilibili;
+package com.fanhl.bilibili.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.fanhl.bilibili.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
