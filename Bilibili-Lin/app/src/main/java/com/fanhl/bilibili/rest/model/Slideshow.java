@@ -1,4 +1,4 @@
-package com.fanhl.bilibili.rest;
+package com.fanhl.bilibili.rest.model;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.fanhl.bilibili.rest.service;
 
-import com.fanhl.bilibili.rest.Slideshow;
+import com.fanhl.bilibili.rest.model.Slideshow;
 
 import retrofit.http.GET;
 import rx.Observable;
