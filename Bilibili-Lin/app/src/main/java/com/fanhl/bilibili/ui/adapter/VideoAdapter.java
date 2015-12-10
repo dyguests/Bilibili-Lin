@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
 import com.fanhl.bilibili.ui.base.BaseDataAdapter;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,8 +49,8 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
         ImageView mCover;
         @Bind(R.id.play)
         TextView  mPlay;
-        @Bind(R.id.reply)
-        TextView  mReply;
+        @Bind(R.id.danmaku)
+        TextView  mDanmaku;
         @Bind(R.id.title)
         TextView  mTitle;
 
@@ -62,8 +63,15 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
         @Override
         public void bindData(BangumiOperationModule.ResultEntity.BodyEntity item) {
             super.bindData(item);
-
-
+            Picasso.with(mCover.getContext())
+                    //.load(item.cover)
+                    .load(item.small_cover)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .centerCrop()
+                    .into(mCover);
+            mPlay.setText(item.play);
+            mDanmaku.setText(item.danmaku);
+            mTitle.setText(item.title);
         }
     }
 }

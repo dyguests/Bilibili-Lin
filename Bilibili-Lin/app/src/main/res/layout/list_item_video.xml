@@ -30,7 +30,7 @@
             android:text="2.5万"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
         <TextView
-            android:id="@+id/reply"
+            android:id="@+id/danmaku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/ic_launcher"
