@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ import com.fanhl.bilibili.ui.base.BaseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
  * Created by fanhl on 15/12/9.
  */
 public class RecommendFragment extends BaseFragment {
+    public static final String TAG = RecommendFragment.class.getSimpleName();
 
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -68,19 +69,9 @@ public class RecommendFragment extends BaseFragment {
                 .subscribe(slideshow -> {
                     mSwipeRefreshLayout.setRefreshing(false);
                     mCarousel.setText(slideshow.toString());
-                }, throwable -> mSwipeRefreshLayout.setRefreshing(false));
-
-        Observable.<Void>create(subscriber -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            subscriber.onNext(null);
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aVoid -> {
+                }, throwable -> {
                     mSwipeRefreshLayout.setRefreshing(false);
+                    Log.e(TAG, Log.getStackTraceString(throwable));
                 });
     }
 }
