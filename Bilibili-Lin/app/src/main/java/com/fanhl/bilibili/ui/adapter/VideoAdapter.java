@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.fanhl.bilibili.ui.base.BaseDataAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,14 +17,13 @@ import butterknife.ButterKnife;
 /**
  * Created by fanhl on 15/12/10.
  */
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
+public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultEntity.BodyEntity, VideoAdapter.ViewHolder> {
+
     /*未取得数据时显示的item数*/
     public static final int EMPTY_ITEM_COUNT = 4;
 
-    private final ArrayList<BangumiOperationModule.ResultEntity.BodyEntity> list;
-
     public VideoAdapter() {
-        list = new ArrayList<>();
+        super();
     }
 
     @Override
@@ -41,14 +38,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     }
 
     @Override
-    public int getItemCount() {
-        return list.size() > 0 ? list.size() : EMPTY_ITEM_COUNT;
-    }
-
-    public void refreshItems(List<BangumiOperationModule.ResultEntity.BodyEntity> items) {
-        list.clear();
-        list.addAll(items);
-        notifyDataSetChanged();
+    protected int getEmptyItemCount() {
+        return EMPTY_ITEM_COUNT;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
