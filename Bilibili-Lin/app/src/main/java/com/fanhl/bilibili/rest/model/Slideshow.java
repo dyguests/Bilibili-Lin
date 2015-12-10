@@ -1,5 +1,7 @@
 package com.fanhl.bilibili.rest.model;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -26,5 +28,10 @@ public class Slideshow {
         public String link;
         public String img;
         public String simg;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

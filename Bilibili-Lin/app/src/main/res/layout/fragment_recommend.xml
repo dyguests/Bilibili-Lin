@@ -17,11 +17,13 @@
             android:orientation="vertical">
             <!--轮播 Carousel-->
             <TextView
+                android:id="@+id/carousel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/accent"
-                android:padding="30dp"
+                android:minHeight="100dp"
+                android:padding="10dp"
                 android:text="这是一个轮播"/>
             <TextView
                 android:layout_width="match_parent"
