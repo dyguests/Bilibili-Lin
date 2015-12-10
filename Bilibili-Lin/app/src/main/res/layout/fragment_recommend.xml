@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/accent"
+                android:maxLines="10"
                 android:minHeight="100dp"
                 android:padding="10dp"
                 android:text="这是一个轮播"/>

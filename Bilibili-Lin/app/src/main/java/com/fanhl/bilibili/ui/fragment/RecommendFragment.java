@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
+import com.fanhl.bilibili.rest.model.BangumiOperationModule;
+import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
 
 import butterknife.Bind;
@@ -29,7 +35,12 @@ public class RecommendFragment extends BaseFragment {
     @Bind(R.id.nested_scroll_view)
     NestedScrollView   mNestedScrollView;
     @Bind(R.id.carousel)
-    TextView           mCarousel;
+    TextView           mCarousel;// FIXME: 15/12/10 之后换成轮播
+    @Bind(R.id.recommend)
+    LinearLayout       recommendContainer;
+
+    private SubAreaCardViewHolder recommendViewHolder;
+
 
     public static RecommendFragment newInstance() {
         return new RecommendFragment();
@@ -55,10 +66,13 @@ public class RecommendFragment extends BaseFragment {
     private void assignViews() {
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.refresh_array));
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
+
+        recommendViewHolder = new SubAreaCardViewHolder(recommendContainer);
+        recommendViewHolder.assignViews();
     }
 
     private void initData() {
-
+        recommendViewHolder.initData();
     }
 
     private void refreshData() {
@@ -68,11 +82,57 @@ public class RecommendFragment extends BaseFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bangumiOperationModule -> {
                     mSwipeRefreshLayout.setRefreshing(false);
-                    mCarousel.setText(bangumiOperationModule.toString());
+                    bindData(bangumiOperationModule);
                 }, throwable -> {
                     mSwipeRefreshLayout.setRefreshing(false);
                     Log.e(TAG, Log.getStackTraceString(throwable));
                 });
 
+    }
+
+    private void bindData(BangumiOperationModule bangumiOperationModule) {
+        mCarousel.setText(bangumiOperationModule.toString());
+        recommendViewHolder.bindData(bangumiOperationModule.getRecommend());
+    }
+
+    /**
+     * This class contains all butterknife-injected Views & Layouts from layout file 'fragment_recommend.xml'
+     * for easy to all layout elements.
+     *
+     * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
+     */
+    static class SubAreaCardViewHolder {
+        public static final int SPAN_COUNT = 2;
+
+        @Bind(R.id.title)
+        TextView     mTitle;
+        @Bind(R.id.button)
+        Button       mButton;
+        @Bind(R.id.recycler_view)
+        RecyclerView mRecyclerView;
+
+        SubAreaCardViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
+        /**
+         * See {@link RecommendFragment#assignViews()}
+         */
+        public void assignViews() {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
+            mRecyclerView.setAdapter(new VideoAdapter());
+//            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
+        }
+
+        /**
+         * See {@link RecommendFragment#initData()}
+         */
+        public void initData() {
+
+        }
+
+        public void bindData(BangumiOperationModule.ResultEntity resultEntity) {
+
+        }
     }
 }

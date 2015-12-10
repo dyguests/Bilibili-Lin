@@ -11,6 +11,9 @@ import java.util.List;
  * Created by fanhl on 15/12/10.
  */
 public class BangumiOperationModule {
+    /*热门推荐*/
+    public static final String RECOMMEND = "recommend";
+
     /**
      * code : 0
      * message : success
@@ -30,6 +33,18 @@ public class BangumiOperationModule {
      */
 
     public List<ResultEntity> result;
+
+    /**
+     * 取得热门推荐版块的数据
+     */
+    public ResultEntity getRecommend() {
+        for (ResultEntity resultEntity : result) {
+            if (RECOMMEND.equals(resultEntity.type)) {
+                return resultEntity;
+            }
+        }
+        return null;
+    }
 
     public static class ResultEntity {
         /**
