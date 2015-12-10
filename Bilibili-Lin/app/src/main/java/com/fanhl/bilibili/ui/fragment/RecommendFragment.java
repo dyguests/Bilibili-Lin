@@ -18,6 +18,7 @@ import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -111,6 +112,8 @@ public class RecommendFragment extends BaseFragment {
         @Bind(R.id.recycler_view)
         RecyclerView mRecyclerView;
 
+        private VideoAdapter adapter;
+
         SubAreaCardViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
@@ -120,7 +123,8 @@ public class RecommendFragment extends BaseFragment {
          */
         public void assignViews() {
             mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
-            mRecyclerView.setAdapter(new VideoAdapter());
+            adapter = new VideoAdapter();
+            mRecyclerView.setAdapter(adapter);
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
         }
 
@@ -132,7 +136,7 @@ public class RecommendFragment extends BaseFragment {
         }
 
         public void bindData(BangumiOperationModule.ResultEntity resultEntity) {
-
+            adapter.refreshItems(resultEntity.body);
         }
     }
 }

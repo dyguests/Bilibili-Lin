@@ -11,6 +11,7 @@ import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,6 +45,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         return list.size() > 0 ? list.size() : EMPTY_ITEM_COUNT;
     }
 
+    public void refreshItems(List<BangumiOperationModule.ResultEntity.BodyEntity> items) {
+        list.clear();
+        list.addAll(items);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.cover)
         ImageView mCover;
@@ -62,7 +69,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         }
 
         public void bindData(BangumiOperationModule.ResultEntity.BodyEntity item) {
-            
+
 
             this.item = item;
         }
