@@ -1,8 +1,7 @@
 package com.fanhl.bilibili.ui.base;
 
 import android.support.v7.widget.RecyclerView;
-
-import com.fanhl.bilibili.rest.model.BangumiOperationModule;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public abstract class BaseDataAdapter<ITEM, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    protected final ArrayList<BangumiOperationModule.ResultEntity.BodyEntity> list;
+    protected final List<ITEM> list;
 
     public BaseDataAdapter() {
         list = new ArrayList<>();
@@ -23,11 +22,25 @@ public abstract class BaseDataAdapter<ITEM, VH extends RecyclerView.ViewHolder> 
         return list.size() > 0 ? list.size() : getEmptyItemCount();
     }
 
-    public void refreshItems(List<BangumiOperationModule.ResultEntity.BodyEntity> items) {
+    /*当list无数据时显示的项目数*/
+    protected abstract int getEmptyItemCount();
+
+    public void refreshItems(List<ITEM> items) {
         list.clear();
         list.addAll(items);
         notifyDataSetChanged();
     }
 
-    protected abstract int getEmptyItemCount();
+    public static class ViewHolder<ITEM> extends RecyclerView.ViewHolder {
+        public ITEM item;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+
+
+        public void bindData(ITEM item) {
+            this.item = item;
+        }
+    }
 }

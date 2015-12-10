@@ -1,6 +1,5 @@
 package com.fanhl.bilibili.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,7 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
 
     @Override
     public VideoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_video, parent, false);
-        return null;
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_video, parent, false));
     }
 
     @Override
@@ -42,7 +40,7 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
         return EMPTY_ITEM_COUNT;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends BaseDataAdapter.ViewHolder<BangumiOperationModule.ResultEntity.BodyEntity> {
         @Bind(R.id.cover)
         ImageView mCover;
         @Bind(R.id.play)
@@ -52,17 +50,17 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
         @Bind(R.id.title)
         TextView  mTitle;
 
-        private BangumiOperationModule.ResultEntity.BodyEntity item;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
+        @Override
         public void bindData(BangumiOperationModule.ResultEntity.BodyEntity item) {
+            super.bindData(item);
 
 
-            this.item = item;
         }
     }
 }
