@@ -1,5 +1,7 @@
 package com.fanhl.bilibili.ui.adapter;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,8 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
     /*未取得数据时显示的item数*/
     public static final int EMPTY_ITEM_COUNT = 4;
 
-    public VideoAdapter() {
-        super();
+    public VideoAdapter(Context context, RecyclerView recyclerView) {
+        super(context, recyclerView);
     }
 
     @Override

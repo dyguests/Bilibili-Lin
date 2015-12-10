@@ -1,5 +1,6 @@
 package com.fanhl.bilibili.ui.base;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -9,11 +10,12 @@ import java.util.List;
 /**
  * Created by fanhl on 15/12/10.
  */
-public abstract class BaseDataAdapter<ITEM, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseDataAdapter<ITEM, CVH extends BaseClickableAdapter.ClickableViewHolder> extends BaseClickableAdapter<CVH> {
 
     protected final List<ITEM> list;
 
-    public BaseDataAdapter() {
+    public BaseDataAdapter(Context context, RecyclerView recyclerView) {
+        super(context, recyclerView);
         list = new ArrayList<>();
     }
 
@@ -31,7 +33,7 @@ public abstract class BaseDataAdapter<ITEM, VH extends RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder<ITEM> extends RecyclerView.ViewHolder {
+    public static class ViewHolder<ITEM> extends BaseClickableAdapter.ClickableViewHolder {
         public ITEM item;
 
         public ViewHolder(View itemView) {
