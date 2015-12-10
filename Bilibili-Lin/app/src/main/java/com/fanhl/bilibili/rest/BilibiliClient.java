@@ -1,6 +1,7 @@
 package com.fanhl.bilibili.rest;
 
-import com.fanhl.bilibili.rest.service.HomeService;
+import com.fanhl.bilibili.rest.service.BangumiService;
+import com.fanhl.bilibili.rest.service.TestService;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -11,7 +12,8 @@ import retrofit.RxJavaCallAdapterFactory;
  */
 public class BilibiliClient {
     private static final String BASE_URL = "http://www.bilibili.com";
-    private final HomeService homeService;
+    private final TestService    testService;
+    private final BangumiService bangumiService;
 
     public BilibiliClient() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -20,10 +22,15 @@ public class BilibiliClient {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        homeService = retrofit.create(HomeService.class);
+        testService = retrofit.create(TestService.class);
+        bangumiService = retrofit.create(BangumiService.class);
     }
 
-    public HomeService getHomeService() {
-        return homeService;
+    public TestService getTestService() {
+        return testService;
+    }
+
+    public BangumiService getBangumiService() {
+        return bangumiService;
     }
 }

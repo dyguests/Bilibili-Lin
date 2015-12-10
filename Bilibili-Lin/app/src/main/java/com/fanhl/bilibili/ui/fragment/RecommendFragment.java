@@ -63,15 +63,26 @@ public class RecommendFragment extends BaseFragment {
 
     private void refreshData() {
         if (!mSwipeRefreshLayout.isRefreshing()) mSwipeRefreshLayout.setRefreshing(true);
-        app().getClient().getHomeService().slideshow()
+//        app().getClient().getTestService().slideshow()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(slideshow -> {
+//                    mSwipeRefreshLayout.setRefreshing(false);
+//                    mCarousel.setText(slideshow.toString());
+//                }, throwable -> {
+//                    mSwipeRefreshLayout.setRefreshing(false);
+//                    Log.e(TAG, Log.getStackTraceString(throwable));
+//                });
+        app().getClient().getBangumiService().operation_module()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(slideshow -> {
+                .subscribe(bangumiOperationModule -> {
                     mSwipeRefreshLayout.setRefreshing(false);
-                    mCarousel.setText(slideshow.toString());
+                    mCarousel.setText(bangumiOperationModule.toString());
                 }, throwable -> {
                     mSwipeRefreshLayout.setRefreshing(false);
                     Log.e(TAG, Log.getStackTraceString(throwable));
                 });
+
     }
 }

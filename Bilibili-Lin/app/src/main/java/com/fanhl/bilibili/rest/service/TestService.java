@@ -1,6 +1,6 @@
 package com.fanhl.bilibili.rest.service;
 
-import com.fanhl.bilibili.rest.model.Slideshow;
+import com.fanhl.bilibili.rest.model.TestSlideshow;
 
 import retrofit.http.GET;
 import rx.Observable;
@@ -9,7 +9,7 @@ import rx.Observable;
  * 主界面想关
  * Created by fanhl on 15/12/9.
  */
-public interface HomeService {
+public interface TestService {
     @GET("/index/slideshow.json")
-    Observable<Slideshow> slideshow();
+    Observable<TestSlideshow> slideshow();
 }
