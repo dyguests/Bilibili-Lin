@@ -96,12 +96,6 @@ public class RecommendFragment extends BaseFragment {
         recommendViewHolder.bindData(bangumiOperationModule.getRecommend());
     }
 
-    /**
-     * This class contains all butterknife-injected Views & Layouts from layout file 'fragment_recommend.xml'
-     * for easy to all layout elements.
-     *
-     * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
-     */
     static class SubAreaCardViewHolder {
         public static final int SPAN_COUNT = 2;
 

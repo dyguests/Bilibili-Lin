@@ -32,7 +32,10 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindData(list.get(position));
+        if (position < list.size()) {
+            holder.bindData(list.get(position));
+        }
+        // FIXME: 15/12/10 是否会因为修改了View,而reBindData时View显示不正确??
     }
 
     @Override
