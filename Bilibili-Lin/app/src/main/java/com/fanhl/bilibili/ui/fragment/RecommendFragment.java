@@ -13,6 +13,12 @@ import com.fanhl.bilibili.ui.base.BaseFragment;
  * Created by fanhl on 15/12/9.
  */
 public class RecommendFragment extends BaseFragment {
+
+
+    public static RecommendFragment newInstance() {
+        return new RecommendFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
