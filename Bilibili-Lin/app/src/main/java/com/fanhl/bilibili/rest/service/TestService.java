@@ -9,6 +9,7 @@ import rx.Observable;
  * 主界面想关
  * Created by fanhl on 15/12/9.
  */
+@Deprecated
 public interface TestService {
     @GET("/index/slideshow.json")
     Observable<TestSlideshow> slideshow();

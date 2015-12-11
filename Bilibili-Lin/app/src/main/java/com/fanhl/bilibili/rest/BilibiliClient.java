@@ -22,7 +22,7 @@ public class BilibiliClient {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        testService = retrofit.create(TestService.class);
+        testService = retrofit.create(TestService.class);// FIXME: 15/12/11 不需要的类
         bangumiService = retrofit.create(BangumiService.class);
     }
 
