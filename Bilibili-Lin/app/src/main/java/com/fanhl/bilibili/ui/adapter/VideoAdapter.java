@@ -34,6 +34,7 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         if (position < list.size()) {
             holder.bindData(list.get(position));
         }

@@ -10,6 +10,9 @@ import android.view.MenuItem;
 
 import com.fanhl.bilibili.R;
 
+/**
+ * 视频详细
+ */
 public class VideoDetailActivity extends AppCompatActivity {
 
     @Override

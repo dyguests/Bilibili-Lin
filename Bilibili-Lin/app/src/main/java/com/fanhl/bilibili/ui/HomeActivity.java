@@ -27,6 +27,9 @@ import com.fanhl.bilibili.ui.fragment.home.RecommendFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 首页
+ */
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

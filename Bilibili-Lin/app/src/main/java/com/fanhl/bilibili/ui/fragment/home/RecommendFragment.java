@@ -1,5 +1,6 @@
 package com.fanhl.bilibili.ui.fragment.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +21,6 @@ import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
 import com.fanhl.bilibili.ui.VideoDetailActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
-import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.base.BaseFragment;
 
 import butterknife.Bind;
@@ -73,7 +73,7 @@ public class RecommendFragment extends BaseFragment {
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.refresh_array));
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
-        recommendViewHolder = new SubAreaCardViewHolder(recommendContainer);
+        recommendViewHolder = new SubAreaCardViewHolder(getActivity(), recommendContainer);
         recommendViewHolder.assignViews();
     }
 
@@ -112,11 +112,12 @@ public class RecommendFragment extends BaseFragment {
         @Bind(R.id.recycler_view)
         RecyclerView mRecyclerView;
 
-        private BaseActivity activity;
+        private Activity activity;
 
         private VideoAdapter adapter;
 
-        SubAreaCardViewHolder(View view) {
+        SubAreaCardViewHolder(Activity activity, View view) {
+            this.activity = activity;
             ButterKnife.bind(this, view);
         }
 
@@ -131,7 +132,6 @@ public class RecommendFragment extends BaseFragment {
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             // FIXME: 15/12/11 是不是应该用 mRecyclerView.addOnItemTouchListener();
             adapter.setOnItemClickListener((position, holder) -> {
-                Log.d(TAG, "setOnItemClickListener position:"+position);
                 Intent intent = new Intent(activity, VideoDetailActivity.class);
                 // FIXME: 15/12/11 等会加参数
                 activity.startActivity(intent);
