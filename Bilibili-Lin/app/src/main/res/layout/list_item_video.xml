@@ -14,8 +14,8 @@
         android:adjustViewBounds="true"
         android:minHeight="@dimen/list_item_video_min_height"
         android:scaleType="centerCrop"
-        tools:ignore="ContentDescription"
-        tools:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        tools:ignore="ContentDescription"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
