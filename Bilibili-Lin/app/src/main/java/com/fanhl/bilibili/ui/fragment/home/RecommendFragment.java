@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
-import com.fanhl.bilibili.ui.VideoDetailActivity;
+import com.fanhl.bilibili.ui.VideoActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
 
@@ -131,7 +131,7 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             adapter.setOnItemClickListener((position, holder) -> {
-                Intent intent = new Intent(activity, VideoDetailActivity.class);
+                Intent intent = new Intent(activity, VideoActivity.class);
                 // FIXME: 15/12/11 等会加参数
                 activity.startActivity(intent);
             });
