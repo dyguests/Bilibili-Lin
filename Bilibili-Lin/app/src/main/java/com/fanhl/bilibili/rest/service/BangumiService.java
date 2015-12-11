@@ -1,6 +1,6 @@
 package com.fanhl.bilibili.rest.service;
 
-import com.fanhl.bilibili.rest.model.BangumiOperationModule;
+import com.fanhl.bilibili.rest.model.RecommendInfo;
 
 import retrofit.http.GET;
 import rx.Observable;
@@ -25,5 +25,5 @@ public interface BangumiService {
      * @return
      */
     @GET("http://app.bilibili.com/bangumi/operation_module?_device=android&_hwid=c315ca432ec47762&appkey=c1b107428d337928&build=408005&channel=xiaomi&module=index&platform=android&screen=xxhdpi&test=0&ts=1449716641000&sign=9af1f0d1d34a657d0f5cc7765daa226e")
-    Observable<BangumiOperationModule> operation_module();
+    Observable<RecommendInfo> operation_module();
 }

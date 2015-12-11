@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * Created by fanhl on 15/12/10.
  */
-public class BangumiOperationModule {
+public class RecommendInfo {
     /*热门推荐*/
     public static final String RECOMMEND = "recommend";
 

@@ -3,6 +3,8 @@ package com.fanhl.bilibili.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -15,60 +17,43 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 视频详细界面
  */
 public class VideoActivity extends BaseActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    @Bind(R.id.main_content)
+    CoordinatorLayout    mMainContent;
+    @Bind(R.id.appbar)
+    AppBarLayout         mAppbar;
+    @Bind(R.id.toolbar)
+    Toolbar              mToolbar;
+    @Bind(R.id.player)
+    ImageView            mPlayer;
+    @Bind(R.id.tabs)
+    TabLayout            mTabs;
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
+    @Bind(R.id.container)
+    ViewPager            mViewPager;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
-
+        ButterKnife.bind(this);
         assignViews();
         initData();
         refreshData();
@@ -98,11 +83,24 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void assignViews() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mTabs.setupWithViewPager(mViewPager);
+
+        mFab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+
 
     }
 
     private void initData() {
-
+        app().getClient().getVideoDetailService().videoDetial();
     }
 
     private void refreshData() {

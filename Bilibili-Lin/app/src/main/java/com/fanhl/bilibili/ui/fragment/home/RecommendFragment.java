@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
-import com.fanhl.bilibili.rest.model.BangumiOperationModule;
+import com.fanhl.bilibili.rest.model.RecommendInfo;
 import com.fanhl.bilibili.ui.VideoActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
@@ -43,9 +43,9 @@ public class RecommendFragment extends BaseFragment {
     @Bind(R.id.recommend)
     LinearLayout       recommendContainer;
 
-    private SubAreaCardViewHolder  recommendViewHolder;
+    private SubAreaCardViewHolder recommendViewHolder;
     /*从服务器端取得的该页面的数据*/
-    private BangumiOperationModule data;
+    private RecommendInfo         data;
 
 
     public static RecommendFragment newInstance() {
@@ -96,7 +96,7 @@ public class RecommendFragment extends BaseFragment {
 
     }
 
-    private void bindData(BangumiOperationModule bangumiOperationModule) {
+    private void bindData(RecommendInfo bangumiOperationModule) {
         data = bangumiOperationModule;
         mCarousel.setText(data.toString());
         recommendViewHolder.bindData(data.getRecommend());
@@ -144,7 +144,7 @@ public class RecommendFragment extends BaseFragment {
 
         }
 
-        public void bindData(BangumiOperationModule.ResultEntity resultEntity) {
+        public void bindData(RecommendInfo.ResultEntity resultEntity) {
             adapter.refreshItems(resultEntity.body);
         }
     }
