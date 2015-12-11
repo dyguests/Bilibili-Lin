@@ -2,6 +2,7 @@ package com.fanhl.bilibili.rest;
 
 import com.fanhl.bilibili.rest.service.BangumiService;
 import com.fanhl.bilibili.rest.service.TestService;
+import com.fanhl.bilibili.rest.service.VideoDetailService;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -12,8 +13,10 @@ import retrofit.RxJavaCallAdapterFactory;
  */
 public class BilibiliClient {
     private static final String BASE_URL = "http://www.bilibili.com";
-    private final TestService    testService;
-    private final BangumiService bangumiService;
+
+    private final TestService        testService;
+    private final BangumiService     bangumiService;
+    private final VideoDetailService videoDetailService;
 
     public BilibiliClient() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -24,6 +27,7 @@ public class BilibiliClient {
 
         testService = retrofit.create(TestService.class);// FIXME: 15/12/11 不需要的类
         bangumiService = retrofit.create(BangumiService.class);
+        videoDetailService = retrofit.create(VideoDetailService.class);
     }
 
     public TestService getTestService() {
@@ -32,5 +36,9 @@ public class BilibiliClient {
 
     public BangumiService getBangumiService() {
         return bangumiService;
+    }
+
+    public VideoDetailService getVideoDetailService() {
+        return videoDetailService;
     }
 }

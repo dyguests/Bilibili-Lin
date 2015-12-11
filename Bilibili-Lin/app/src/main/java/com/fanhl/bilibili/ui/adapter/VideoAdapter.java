@@ -24,8 +24,8 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
     /*未取得数据时显示的item数*/
     public static final int EMPTY_ITEM_COUNT = 4;
 
-    public VideoAdapter(Context context, RecyclerView recyclerView) {
-        super(context, recyclerView);
+    public VideoAdapter(RecyclerView recyclerView) {
+        super(recyclerView);
     }
 
     @Override

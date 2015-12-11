@@ -14,8 +14,8 @@ public abstract class BaseDataAdapter<ITEM, CVH extends BaseClickableAdapter.Cli
 
     protected final List<ITEM> list;
 
-    public BaseDataAdapter(Context context, RecyclerView recyclerView) {
-        super(context, recyclerView);
+    public BaseDataAdapter(RecyclerView recyclerView) {
+        super(recyclerView);
         list = new ArrayList<>();
     }
 

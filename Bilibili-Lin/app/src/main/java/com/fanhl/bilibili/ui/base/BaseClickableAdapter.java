@@ -1,6 +1,5 @@
 package com.fanhl.bilibili.ui.base;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -9,15 +8,12 @@ import java.util.List;
 
 public abstract class BaseClickableAdapter<CVH extends BaseClickableAdapter.ClickableViewHolder> extends RecyclerView.Adapter<CVH> {
 
-    protected Context context;
 
     protected RecyclerView mRecyclerView;
     protected List<RecyclerView.OnScrollListener> mListeners = new ArrayList<>();
 
-    public BaseClickableAdapter(Context context, RecyclerView recyclerView) {
-        this.context = context;
-
-        this.mRecyclerView = recyclerView;
+    public BaseClickableAdapter(RecyclerView recyclerView) {
+        this.mRecyclerView = recyclerView;// FIXME: 15/12/11 这个是不是可以不要
         this.mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView rv, int newState) {

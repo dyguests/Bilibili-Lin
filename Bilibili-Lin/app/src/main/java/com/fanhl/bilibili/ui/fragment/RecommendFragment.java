@@ -1,5 +1,6 @@
 package com.fanhl.bilibili.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.BangumiOperationModule;
+import com.fanhl.bilibili.ui.VideoDetailActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
+import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.base.BaseFragment;
 
 import butterknife.Bind;
@@ -39,7 +42,9 @@ public class RecommendFragment extends BaseFragment {
     @Bind(R.id.recommend)
     LinearLayout       recommendContainer;
 
-    private SubAreaCardViewHolder recommendViewHolder;
+    private SubAreaCardViewHolder  recommendViewHolder;
+    /*从服务器端取得的该页面的数据*/
+    private BangumiOperationModule data;
 
 
     public static RecommendFragment newInstance() {
@@ -91,8 +96,9 @@ public class RecommendFragment extends BaseFragment {
     }
 
     private void bindData(BangumiOperationModule bangumiOperationModule) {
-        mCarousel.setText(bangumiOperationModule.toString());
-        recommendViewHolder.bindData(bangumiOperationModule.getRecommend());
+        data = bangumiOperationModule;
+        mCarousel.setText(data.toString());
+        recommendViewHolder.bindData(data.getRecommend());
     }
 
     static class SubAreaCardViewHolder {
@@ -105,6 +111,8 @@ public class RecommendFragment extends BaseFragment {
         @Bind(R.id.recycler_view)
         RecyclerView mRecyclerView;
 
+        private BaseActivity activity;
+
         private VideoAdapter adapter;
 
         SubAreaCardViewHolder(View view) {
@@ -116,9 +124,15 @@ public class RecommendFragment extends BaseFragment {
          */
         public void assignViews() {
             mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
-            adapter = new VideoAdapter(context, mRecyclerView);
+            adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
+            // FIXME: 15/12/11 是不是应该用 mRecyclerView.addOnItemTouchListener();
+            adapter.setOnItemClickListener((position, holder) -> {
+                Intent intent = new Intent(activity, VideoDetailActivity.class);
+                // FIXME: 15/12/11 等会加参数
+                activity.startActivity(intent);
+            });
         }
 
         /**
