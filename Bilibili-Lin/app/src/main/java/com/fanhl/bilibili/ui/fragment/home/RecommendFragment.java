@@ -130,7 +130,6 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
-            // FIXME: 15/12/11 是不是应该用 mRecyclerView.addOnItemTouchListener();
             adapter.setOnItemClickListener((position, holder) -> {
                 Intent intent = new Intent(activity, VideoDetailActivity.class);
                 // FIXME: 15/12/11 等会加参数
