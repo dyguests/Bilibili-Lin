@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.RecommendInfo;
+import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.VideoActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
@@ -130,7 +131,7 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             adapter.setOnItemClickListener((position, holder) -> {
-                RecommendInfo.ResultEntity.VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;
+                VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;
                 if (item != null) VideoActivity.launch(activity, item);
             });
         }

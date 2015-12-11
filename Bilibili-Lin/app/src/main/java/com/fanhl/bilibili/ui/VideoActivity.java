@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
-import com.fanhl.bilibili.rest.model.RecommendInfo;
+import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
 
@@ -51,7 +51,7 @@ public class VideoActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    public static void launch(Activity activity, RecommendInfo.ResultEntity.VideoInfo item) {
+    public static void launch(Activity activity, VideoInfo data) {
 
     }
 
