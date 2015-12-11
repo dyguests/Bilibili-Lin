@@ -29,7 +29,7 @@ public class VideoAdapter extends BaseDataAdapter<BangumiOperationModule.ResultE
 
     @Override
     public VideoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_video, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_video_card, parent, false));
     }
 
     @Override

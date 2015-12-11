@@ -131,6 +131,7 @@ public class RecommendFragment extends BaseFragment {
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             // FIXME: 15/12/11 是不是应该用 mRecyclerView.addOnItemTouchListener();
             adapter.setOnItemClickListener((position, holder) -> {
+                Log.d(TAG, "setOnItemClickListener position:"+position);
                 Intent intent = new Intent(activity, VideoDetailActivity.class);
                 // FIXME: 15/12/11 等会加参数
                 activity.startActivity(intent);

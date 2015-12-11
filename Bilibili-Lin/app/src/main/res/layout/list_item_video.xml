@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_width="180dp">
+    tools:layout_width="180dp"
+    tools:showIn="@layout/list_item_video_card">
     <ImageView
         android:id="@+id/cover"
         android:layout_width="match_parent"
