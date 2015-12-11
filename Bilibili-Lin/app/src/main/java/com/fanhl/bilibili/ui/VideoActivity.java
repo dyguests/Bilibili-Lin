@@ -3,6 +3,7 @@ package com.fanhl.bilibili.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,6 +26,7 @@ import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
+import com.fanhl.util.GsonUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +35,8 @@ import butterknife.ButterKnife;
  * 视频详细界面
  */
 public class VideoActivity extends BaseActivity {
+
+    public static final String EXTRA_VIDEO_INFO_DATA = "EXTRA_VIDEO_INFO_DATA";
 
     @Bind(R.id.main_content)
     CoordinatorLayout    mMainContent;
@@ -49,10 +53,17 @@ public class VideoActivity extends BaseActivity {
     @Bind(R.id.container)
     ViewPager            mViewPager;
 
+    /*基础数据,跳转到当前Activity时传入的数据*/
+    private VideoInfo baseData;
+
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    public static void launch(Activity activity, VideoInfo data) {
-
+    public static void launch(Activity activity, VideoInfo baseData) {
+        Intent intent = new Intent(activity, VideoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        intent.putExtra(EXTRA_VIDEO_INFO_DATA, GsonUtil.json(baseData));
+        activity.startActivity(intent);
     }
 
     @Override
@@ -106,11 +117,12 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void initData() {
-        app().getClient().getVideoDetailService().videoDetial();
+        Intent intent = getIntent();
+        baseData = GsonUtil.obj(intent.getStringExtra(EXTRA_VIDEO_INFO_DATA), VideoInfo.class);
     }
 
     private void refreshData() {
-
+        app().getClient().getVideoDetailService().videoDetial();
     }
 
     /**
@@ -164,7 +176,7 @@ public class VideoActivity extends BaseActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    if (videoDetailsFragment == null) videoDetailsFragment = VideoDetailsFragment.newInstance();
+                    if (videoDetailsFragment == null) videoDetailsFragment = VideoDetailsFragment.newInstance(baseData);
                     return videoDetailsFragment;
             }
             return PlaceholderFragment.newInstance(position + 1);
