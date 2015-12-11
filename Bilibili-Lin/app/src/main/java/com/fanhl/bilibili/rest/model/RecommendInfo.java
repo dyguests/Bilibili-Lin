@@ -54,8 +54,8 @@ public class RecommendInfo {
          * title : 热门焦点
          */
 
-        public HeadEntity       head;
-        public String           type;
+        public HeadEntity      head;
+        public String          type;
         /**
          * cover : http://i0.hdslb.com/480_294/u_user/33253f4b8f3da8d2d5f28374487e288d.jpg
          * danmaku : 608
@@ -73,7 +73,7 @@ public class RecommendInfo {
          * width : 480
          */
 
-        public List<BodyEntity> body;
+        public List<VideoInfo> body;
 
         public static class HeadEntity {
             @SerializedName("goto")
@@ -83,7 +83,10 @@ public class RecommendInfo {
             public String title;
         }
 
-        public static class BodyEntity {
+        /**
+         * 视频基本信息
+         */
+        public static class VideoInfo {
             public String cover;
             public String danmaku;
             public String desc1;

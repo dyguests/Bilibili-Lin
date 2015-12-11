@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by fanhl on 15/12/10.
  */
-public class VideoAdapter extends BaseDataAdapter<RecommendInfo.ResultEntity.BodyEntity, VideoAdapter.ViewHolder> {
+public class VideoAdapter extends BaseDataAdapter<RecommendInfo.ResultEntity.VideoInfo, VideoAdapter.ViewHolder> {
 
     /*未取得数据时显示的item数*/
     public static final int EMPTY_ITEM_COUNT = 4;
@@ -46,7 +46,7 @@ public class VideoAdapter extends BaseDataAdapter<RecommendInfo.ResultEntity.Bod
         return EMPTY_ITEM_COUNT;
     }
 
-    public static class ViewHolder extends BaseDataAdapter.ViewHolder<RecommendInfo.ResultEntity.BodyEntity> {
+    public static class ViewHolder extends BaseDataAdapter.ViewHolder<RecommendInfo.ResultEntity.VideoInfo> {
         @Bind(R.id.cover)
         ImageView mCover;
         @Bind(R.id.play)
@@ -63,7 +63,7 @@ public class VideoAdapter extends BaseDataAdapter<RecommendInfo.ResultEntity.Bod
         }
 
         @Override
-        public void bindData(RecommendInfo.ResultEntity.BodyEntity item) {
+        public void bindData(RecommendInfo.ResultEntity.VideoInfo item) {
             super.bindData(item);
             Picasso.with(mCover.getContext())
                     //.load(item.cover)

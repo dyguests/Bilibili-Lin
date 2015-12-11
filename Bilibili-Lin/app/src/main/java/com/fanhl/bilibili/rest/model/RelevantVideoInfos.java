@@ -6,7 +6,7 @@ import java.util.List;
  * 首页>点击视频>视频详细页面>相关视频
  * Created by fanhl on 15/12/11.
  */
-public class RelevantVideoInfo {
+public class RelevantVideoInfos {
     /**
      * code : 0
      * stoken : 536119734579755666

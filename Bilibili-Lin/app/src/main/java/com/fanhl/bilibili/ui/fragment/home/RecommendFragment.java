@@ -1,7 +1,6 @@
 package com.fanhl.bilibili.ui.fragment.home;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -131,9 +130,8 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             adapter.setOnItemClickListener((position, holder) -> {
-                Intent intent = new Intent(activity, VideoActivity.class);
-                // FIXME: 15/12/11 等会加参数
-                activity.startActivity(intent);
+                RecommendInfo.ResultEntity.VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;
+                if (item != null) VideoActivity.launch(activity, item);
             });
         }
 
