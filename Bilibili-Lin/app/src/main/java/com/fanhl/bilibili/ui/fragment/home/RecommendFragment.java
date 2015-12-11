@@ -1,4 +1,4 @@
-package com.fanhl.bilibili.ui.fragment;
+package com.fanhl.bilibili.ui.fragment.home;
 
 import android.content.Intent;
 import android.os.Bundle;

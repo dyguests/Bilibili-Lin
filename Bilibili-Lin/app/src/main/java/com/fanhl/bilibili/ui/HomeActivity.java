@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.ui.base.BaseActivity;
-import com.fanhl.bilibili.ui.fragment.RecommendFragment;
+import com.fanhl.bilibili.ui.fragment.home.RecommendFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
