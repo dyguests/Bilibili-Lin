@@ -1,12 +1,12 @@
 package com.fanhl.bilibili.ui;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.ui.base.BaseActivity;
+import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
 
 /**
  * 视频详细界面
@@ -55,7 +56,7 @@ public class VideoActivity extends BaseActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -149,14 +150,19 @@ public class VideoActivity extends BaseActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private VideoDetailsFragment videoDetailsFragment;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    if (videoDetailsFragment == null) videoDetailsFragment = VideoDetailsFragment.newInstance();
+                    return videoDetailsFragment;
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 
