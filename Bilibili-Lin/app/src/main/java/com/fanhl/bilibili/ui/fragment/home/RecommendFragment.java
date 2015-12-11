@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -126,6 +127,7 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             // FIXME: 15/12/11 是不是应该用 mRecyclerView.addOnItemTouchListener();
             adapter.setOnItemClickListener((position, holder) -> {
