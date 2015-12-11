@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,11 +18,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fanhl.bilibili.R;
+import com.fanhl.bilibili.ui.base.BaseActivity;
 
 /**
  * 视频详细界面
  */
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends BaseActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -68,8 +68,10 @@ public class VideoActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
+        assignViews();
+        initData();
+        refreshData();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,6 +79,7 @@ public class VideoActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_video, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,6 +94,18 @@ public class VideoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void assignViews() {
+
+    }
+
+    private void initData() {
+
+    }
+
+    private void refreshData() {
+
     }
 
     /**

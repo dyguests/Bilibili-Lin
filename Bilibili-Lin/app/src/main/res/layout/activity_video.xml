@@ -25,6 +25,14 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_500"
+            android:padding="80dp"
+            android:text="播放器"/>
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
