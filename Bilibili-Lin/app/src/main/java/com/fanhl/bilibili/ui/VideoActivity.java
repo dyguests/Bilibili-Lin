@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.VideoInfo;
@@ -30,6 +31,7 @@ import com.fanhl.util.GsonUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import master.flame.danmaku.ui.widget.DanmakuView;
 
 /**
  * 视频详细界面
@@ -39,19 +41,24 @@ public class VideoActivity extends BaseActivity {
     public static final String EXTRA_VIDEO_INFO_DATA = "EXTRA_VIDEO_INFO_DATA";
 
     @Bind(R.id.main_content)
-    CoordinatorLayout    mMainContent;
+    CoordinatorLayout mMainContent;
     @Bind(R.id.appbar)
-    AppBarLayout         mAppbar;
+    AppBarLayout      mAppbar;
     @Bind(R.id.toolbar)
-    Toolbar              mToolbar;
-    @Bind(R.id.player)
-    ImageView            mPlayer;
+    Toolbar           mToolbar;
     @Bind(R.id.tabs)
     TabLayout            mTabs;
     @Bind(R.id.fab)
     FloatingActionButton mFab;
     @Bind(R.id.container)
     ViewPager            mViewPager;
+    //player_container 视频播放相关----------------------------
+    @Bind(R.id.video_view)
+    VideoView            mVideoView;
+    @Bind(R.id.danmaku_view)
+    DanmakuView          mDanmakuView;
+    @Bind(R.id.cover)
+    ImageView            mCover;
 
     /*基础数据,跳转到当前Activity时传入的数据*/
     private VideoInfo baseData;

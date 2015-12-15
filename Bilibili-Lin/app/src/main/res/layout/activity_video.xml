@@ -24,13 +24,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-        <!--fixme 播放器-->
-        <ImageView
-            android:id="@+id/player"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/blue_500"
-            tools:ignore="ContentDescription"/>
+        <include layout="@layout/player_container"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
