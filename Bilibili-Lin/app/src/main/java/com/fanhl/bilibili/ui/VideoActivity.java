@@ -89,6 +89,9 @@ public class VideoActivity extends BaseActivity {
     private BaseDanmakuParser mDanmakuParser;
     private String            mXMLFileName;
 
+    /*暂停时存放播放的位置*/
+    private int mLastPosition;
+
     public static void launch(Activity activity, VideoInfo baseData) {
         Intent intent = new Intent(activity, VideoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -106,6 +109,53 @@ public class VideoActivity extends BaseActivity {
         refreshData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
+            mDanmakuView.resume();
+            mDanmakuView.seekTo((long) mLastPosition);
+        }
+        //todo 看看能不能保留缓冲的视频
+        if (mVideoView != null && !mVideoView.isPlaying()) {
+            mVideoView.start();
+            mVideoView.seekTo(mLastPosition);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mVideoView != null) {
+            mLastPosition = mVideoView.getCurrentPosition();
+            mVideoView.pause();
+        }
+
+        if (mDanmakuView != null && mDanmakuView.isPrepared()) {
+            mDanmakuView.pause();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mDanmakuView != null) {
+            // dont forget release!
+            mDanmakuView.release();
+            mDanmakuView = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mVideoView != null && mVideoView.isDrawingCacheEnabled()) {
+            mVideoView.destroyDrawingCache();
+        }
+        if (mDanmakuView != null && mDanmakuView.isPaused()) {
+            mDanmakuView.release();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
