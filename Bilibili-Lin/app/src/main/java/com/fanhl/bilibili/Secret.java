@@ -1,4 +1,4 @@
-import com.fanhl.bilibili.BuildConfig;
+package com.fanhl.bilibili;
 
 /**
  * Created by fanhl on 15/12/16.
