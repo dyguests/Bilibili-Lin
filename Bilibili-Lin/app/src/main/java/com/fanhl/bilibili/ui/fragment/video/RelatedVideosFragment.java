@@ -1,11 +1,11 @@
 package com.fanhl.bilibili.ui.fragment.video;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +14,19 @@ import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.rest.model.RelatedVideos;
 import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.adapter.RelatedVideoAdapter;
+import com.fanhl.bilibili.ui.base.BaseFragment;
 import com.fanhl.util.GsonUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by fanhl on 15/12/16.
  */
-public class RelatedVideosFragment extends Fragment {
+public class RelatedVideosFragment extends BaseFragment {
+    public static final String TAG                   = RelatedVideosFragment.class.getSimpleName();
     public static final String EXTRA_VIDEO_INFO_DATA = "EXTRA_VIDEO_INFO_DATA";
 
     @Bind(R.id.recycler_view)
@@ -83,6 +87,16 @@ public class RelatedVideosFragment extends Fragment {
     }
 
     private void refreshData() {
-
+        //取得视频页面信息(视频简介,视频相关...)
+        // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
+        app().getClient().getVideoService().relatedVideos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(relatedVideos -> {
+                    // FIXME: 15/12/15 这个接口还没写好
+                    Log.d(TAG, "相关视频信息:" + relatedVideos.toString());
+                }, throwable -> {
+                    Log.e(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
+                });
     }
 }
