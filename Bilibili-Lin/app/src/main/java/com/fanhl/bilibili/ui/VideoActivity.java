@@ -202,13 +202,6 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void refreshData() {
-//        refreshPlayData();
-    }
-
-    /**
-     * 视频播放信息
-     */
-    private void refreshPlayData() {
         //取得视频播放信息
         Observable<VideoM> videoMObservable = app().getClient().getVideoService().getVideoApiRx("3337029")
                 .subscribeOn(Schedulers.io());
