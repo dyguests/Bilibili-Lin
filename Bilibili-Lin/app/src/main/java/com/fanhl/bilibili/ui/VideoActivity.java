@@ -204,12 +204,14 @@ public class VideoActivity extends BaseActivity {
     private void refreshData() {
         //取得视频页面信息(视频简介,视频相关...)
         // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
-        app().getClient().getVideoService().videoDetial()
+        app().getClient().getVideoService().relatedVideos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
+                .subscribe(relatedVideos -> {
                     // FIXME: 15/12/15 这个接口还没写好
-                    Log.d(TAG, "视频详细信息:" + s);
+                    Log.d(TAG, "相关视频信息:" + relatedVideos.toString());
+                }, throwable -> {
+                    Log.d(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
                 });
 //        refreshPlayData();
     }

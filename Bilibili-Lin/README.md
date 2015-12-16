@@ -4,6 +4,13 @@
 
 ButterKnife.
 
+#进度
+
+|    时间     |     工作        |
+| ---------- | ------------ |
+| 2015.12.9 |     初始化项目  |
+| 2015.12.10 |   搭框架,推荐fragment  |
+
 #备注
 
 |首页ListItem分类|
@@ -12,16 +19,16 @@ ButterKnife.
 | drama |
 | bar   |
 
-#进度
+#问题
 
-|    时间     |     工作        |
-| ---------- | ------------ |
-| 2015.12.9 |     初始化项目  |
-| 2015.12.10 |   搭框架,推荐fragment  |
+1.未使用IjkPlayer,先暂时用Android自带的VideoView
 
 #数据字典
 
-|    英文     |     中文        |
-| ---------- | ------------ |
-| subarea |     子分区  |
-
+|    English            |     中文        |
+| ----------            | ------------ |
+| subarea               |     子分区  |
+|     comments          | 评论 |
+| related videos        | 相关视频 |    
+|  video responses      | 视频回复 |    
+|    author profiles    | 作者个人信息 | 
