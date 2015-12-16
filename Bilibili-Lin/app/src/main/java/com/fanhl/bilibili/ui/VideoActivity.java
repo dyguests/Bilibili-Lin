@@ -202,6 +202,7 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void refreshData() {
+        // FIXME: 15/12/16 放到RelatedVideoFragment中去
         //取得视频页面信息(视频简介,视频相关...)
         // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
         app().getClient().getVideoService().relatedVideos()
@@ -211,7 +212,7 @@ public class VideoActivity extends BaseActivity {
                     // FIXME: 15/12/15 这个接口还没写好
                     Log.d(TAG, "相关视频信息:" + relatedVideos.toString());
                 }, throwable -> {
-                    Log.d(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
+                    Log.e(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
                 });
 //        refreshPlayData();
     }

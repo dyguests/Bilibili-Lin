@@ -1,6 +1,5 @@
 package com.fanhl.bilibili.ui.base;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 

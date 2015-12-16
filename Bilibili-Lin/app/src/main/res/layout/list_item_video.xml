@@ -26,7 +26,7 @@
             android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawableLeft="@drawable/mini_draw_left"
             android:gravity="center_vertical"
             android:text="2.5万"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
@@ -34,7 +34,7 @@
             android:id="@+id/danmaku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawableLeft="@drawable/mini_draw_left"
             android:gravity="center_vertical"
             android:text="312"
             android:textAppearance="?android:attr/textAppearanceSmall"/>

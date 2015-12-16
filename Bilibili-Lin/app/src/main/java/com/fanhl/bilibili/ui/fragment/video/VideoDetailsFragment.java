@@ -48,7 +48,7 @@ public class VideoDetailsFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         assignViews();
         initData();
-        onRefreshed();
+//        onDataRefreshed();
         return view;
     }
 
@@ -66,7 +66,7 @@ public class VideoDetailsFragment extends BaseFragment {
         mDescription.setText(GsonUtil.json(baseData));
     }
 
-    private void onRefreshed() {
+    private void onDataRefreshed() {
 
     }
 }
