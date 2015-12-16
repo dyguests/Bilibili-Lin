@@ -56,10 +56,10 @@ public class RelatedVideosFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_related_video, container, false);
+        ButterKnife.bind(this, view);
         assignViews();
         initData();
         refreshData();
-        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -93,8 +93,8 @@ public class RelatedVideosFragment extends BaseFragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(relatedVideos -> {
-                    // FIXME: 15/12/15 这个接口还没写好
                     Log.d(TAG, "相关视频信息:" + relatedVideos.toString());
+                    adapter.refreshItems(relatedVideos.result);
                 }, throwable -> {
                     Log.e(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
                 });

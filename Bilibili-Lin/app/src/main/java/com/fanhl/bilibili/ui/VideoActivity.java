@@ -31,6 +31,7 @@ import com.fanhl.bilibili.rest.XmlDownloader;
 import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.rest.model.VideoM;
 import com.fanhl.bilibili.ui.base.BaseActivity;
+import com.fanhl.bilibili.ui.fragment.video.RelatedVideosFragment;
 import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
 import com.fanhl.bilibili.util.DanmakuParser;
 import com.fanhl.util.GsonUtil;
@@ -341,7 +342,8 @@ public class VideoActivity extends BaseActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private VideoDetailsFragment videoDetailsFragment;
+        private VideoDetailsFragment  videoDetailsFragment;
+        private RelatedVideosFragment relatedVideosFragment;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -351,8 +353,13 @@ public class VideoActivity extends BaseActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    if (videoDetailsFragment == null) videoDetailsFragment = VideoDetailsFragment.newInstance(baseData);
+                    if (videoDetailsFragment == null)
+                        videoDetailsFragment = VideoDetailsFragment.newInstance(baseData);
                     return videoDetailsFragment;
+                case 1:
+                    if (relatedVideosFragment == null)
+                        relatedVideosFragment = RelatedVideosFragment.newInstance(baseData);
+                    return relatedVideosFragment;
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
