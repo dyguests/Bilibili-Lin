@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,19 +21,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.fanhl.bilibili.R;
+import com.fanhl.bilibili.Secret;
+import com.fanhl.bilibili.rest.XmlDownloader;
 import com.fanhl.bilibili.rest.model.VideoInfo;
+import com.fanhl.bilibili.rest.model.VideoM;
 import com.fanhl.bilibili.ui.base.BaseActivity;
 import com.fanhl.bilibili.ui.fragment.video.VideoDetailsFragment;
+import com.fanhl.bilibili.util.DanmakuParser;
 import com.fanhl.util.GsonUtil;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import master.flame.danmaku.controller.DrawHandler;
+import master.flame.danmaku.danmaku.model.DanmakuTimer;
+import master.flame.danmaku.danmaku.model.android.DanmakuContext;
+import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.ui.widget.DanmakuView;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -57,6 +71,8 @@ public class VideoActivity extends BaseActivity {
     @Bind(R.id.container)
     ViewPager            mViewPager;
     //player_container 视频播放相关----------------------------
+    @Bind(R.id.player_container)
+    FrameLayout          mPlayerContainer;
     @Bind(R.id.video_view)
     VideoView            mVideoView;
     @Bind(R.id.danmaku_view)
@@ -69,6 +85,9 @@ public class VideoActivity extends BaseActivity {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private BaseDanmakuParser mDanmakuParser;
+    private String            mXMLFileName;
 
     public static void launch(Activity activity, VideoInfo baseData) {
         Intent intent = new Intent(activity, VideoActivity.class);
@@ -133,6 +152,7 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void refreshData() {
+        //取得视频页面信息(视频简介,视频相关...)
         // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
         app().getClient().getVideoService().videoDetial()
                 .subscribeOn(Schedulers.io())
@@ -141,15 +161,104 @@ public class VideoActivity extends BaseActivity {
                     // FIXME: 15/12/15 这个接口还没写好
                     Log.d(TAG, "视频详细信息:" + s);
                 });
-
-//        Observable.<String>create(subscriber -> subscriber.onNext("朽木吃粑粑"))
-//                .asObservable()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .<String>map(s -> s+"x2")
-//                .<String>flatMap(s->Observable.just(s+"x2"))
-//                .subscribe(s -> Log.d(TAG, "s:"+s));
+//        refreshPlayData();
     }
+
+    /**
+     * 视频播放信息
+     */
+    private void refreshPlayData() {
+        //取得视频播放信息
+        Observable<VideoM> videoMObservable = app().getClient().getVideoService().getVideoApiRx("3337029")
+                .subscribeOn(Schedulers.io());
+        //弹幕
+        Observable<Void> danmakuObservable = videoMObservable
+                .map(videoM -> {
+                    if (videoM.getCid().contentEquals("undefined")) return "error";
+                    mXMLFileName = videoM.getCid().substring(videoM.getCid().lastIndexOf('/') + 1);
+                    String CID = mXMLFileName.substring(0, mXMLFileName.lastIndexOf("."));
+                    return "http://www.bilibilijj.com/ashx/Barrage.ashx?f=true&av=&p=&s=xml&cid=" + CID + "&n=" + CID;
+                })
+                .flatMap(string -> {
+                    if ("error".equals(string)) return Observable.error(new Exception("视频不存在或不能播放."));
+                    return XmlDownloader.download(string);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(this::prepareDanmaku);
+        //视频
+        Observable<Void> videoObservable = videoMObservable
+                .map(VideoM::getCid)
+                .map(s -> {
+                    if ("undefined".contentEquals(s)) return "error";
+                    return s.substring(s.lastIndexOf('/') + 1, s.lastIndexOf("."));
+                })
+                .flatMap(cid -> {
+                    if ("error".equals(cid)) return Observable.error(new Exception("视频不存在或不能播放."));
+                    return app().getClient().getVideoService().getVideoApi("json", cid, "mp4", 4, Secret.App_Key);
+                })
+                .map(videoHDM -> Uri.parse(videoHDM.getDurl().get(0).getUrl()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(this::prepareVideo);
+        //视频弹幕同时加载后才播放
+        Observable
+                .merge(danmakuObservable, videoObservable)
+                .last()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aVoid -> {
+                }, e -> {
+                    Snackbar.make(mMainContent, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }, () -> {
+                    mVideoView.start();
+                    mDanmakuView.start();
+                });
+    }
+
+    /**
+     * danmaku加载
+     *
+     * @param xmlFile
+     * @return
+     */
+    public Observable<Void> prepareDanmaku(final File xmlFile) {
+        return Observable.<Void>create(subscriber -> {
+            try {
+                mDanmakuParser = DanmakuParser.createParser(xmlFile);
+                mDanmakuView.setCallback(new DrawHandler.Callback() {
+                    @Override
+                    public void prepared() {
+                        subscriber.onCompleted();
+                    }
+
+                    @Override
+                    public void updateTimer(DanmakuTimer danmakuTimer) {
+                    }
+
+                    @Override
+                    public void drawingFinished() {
+                    }
+                });
+                mDanmakuView.prepare(mDanmakuParser, new DanmakuContext());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                subscriber.onError(e);
+            }
+        });
+    }
+
+    /**
+     * 视频加载
+     *
+     * @param src
+     * @return
+     */
+    private Observable<Void> prepareVideo(Uri src) {
+        return Observable.<Void>create(subscriber -> {
+            mVideoView.setVideoURI(src);
+            mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
+        });
+    }
+
 
     /**
      * A placeholder fragment containing a simple view.

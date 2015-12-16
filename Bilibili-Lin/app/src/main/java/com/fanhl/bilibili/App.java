@@ -9,12 +9,19 @@ import com.fanhl.bilibili.rest.BilibiliClient;
  */
 public class App extends Application {
 
+    private static App instance;
+
     private BilibiliClient client;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         client = new BilibiliClient();
+    }
+
+    public static App getInstance() {
+        return instance;
     }
 
     public BilibiliClient getClient() {
