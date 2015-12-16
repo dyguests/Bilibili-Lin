@@ -14,6 +14,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,20 +33,24 @@ import com.fanhl.util.GsonUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import master.flame.danmaku.ui.widget.DanmakuView;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 视频详细界面
  */
 public class VideoActivity extends BaseActivity {
+    public static final String TAG = VideoActivity.class.getSimpleName();
 
     public static final String EXTRA_VIDEO_INFO_DATA = "EXTRA_VIDEO_INFO_DATA";
 
     @Bind(R.id.main_content)
-    CoordinatorLayout mMainContent;
+    CoordinatorLayout    mMainContent;
     @Bind(R.id.appbar)
-    AppBarLayout      mAppbar;
+    AppBarLayout         mAppbar;
     @Bind(R.id.toolbar)
-    Toolbar           mToolbar;
+    Toolbar              mToolbar;
     @Bind(R.id.tabs)
     TabLayout            mTabs;
     @Bind(R.id.fab)
@@ -129,7 +134,21 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void refreshData() {
-        app().getClient().getVideoDetailService().videoDetial();
+        // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
+        app().getClient().getVideoService().videoDetial()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    // FIXME: 15/12/15 这个接口还没写好
+                });
+
+//        Observable.<String>create(subscriber -> subscriber.onNext("朽木吃粑粑"))
+//                .asObservable()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .<String>map(s -> s+"x2")
+//                .<String>flatMap(s->Observable.just(s+"x2"))
+//                .subscribe(s -> Log.d(TAG, "s:"+s));
     }
 
     /**
