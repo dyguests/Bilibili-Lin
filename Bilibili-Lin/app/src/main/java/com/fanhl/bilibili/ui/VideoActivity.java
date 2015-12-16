@@ -33,7 +33,6 @@ import com.fanhl.util.GsonUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import master.flame.danmaku.ui.widget.DanmakuView;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -140,6 +139,7 @@ public class VideoActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     // FIXME: 15/12/15 这个接口还没写好
+                    Log.d(TAG, "视频详细信息:" + s);
                 });
 
 //        Observable.<String>create(subscriber -> subscriber.onNext("朽木吃粑粑"))
