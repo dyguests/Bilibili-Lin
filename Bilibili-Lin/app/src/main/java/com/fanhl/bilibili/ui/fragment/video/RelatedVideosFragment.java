@@ -2,6 +2,7 @@ package com.fanhl.bilibili.ui.fragment.video;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,8 +30,10 @@ public class RelatedVideosFragment extends BaseFragment {
     public static final String TAG                   = RelatedVideosFragment.class.getSimpleName();
     public static final String EXTRA_VIDEO_INFO_DATA = "EXTRA_VIDEO_INFO_DATA";
 
+    @Bind(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    RecyclerView       mRecyclerView;
 
 
     private VideoInfo baseData;
@@ -70,6 +73,9 @@ public class RelatedVideosFragment extends BaseFragment {
     }
 
     private void assignViews() {
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.refresh_array));
+        mSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapter = new RelatedVideoAdapter(mRecyclerView);
         mRecyclerView.setAdapter(adapter);
@@ -87,15 +93,17 @@ public class RelatedVideosFragment extends BaseFragment {
     }
 
     private void refreshData() {
+        if (!mSwipeRefreshLayout.isRefreshing()) mSwipeRefreshLayout.setRefreshing(true);
         //取得视频页面信息(视频简介,视频相关...)
-        // FIXME: 15/12/15 改Observable成 先加载视频信息,再加载视频
         app().getClient().getVideoService().relatedVideos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(relatedVideos -> {
+                    mSwipeRefreshLayout.setRefreshing(false);
                     Log.d(TAG, "相关视频信息:" + relatedVideos.toString());
                     adapter.refreshItems(relatedVideos.result);
                 }, throwable -> {
+                    mSwipeRefreshLayout.setRefreshing(false);
                     Log.e(TAG, "相关视频信息取得失败:" + Log.getStackTraceString(throwable));
                 });
     }
