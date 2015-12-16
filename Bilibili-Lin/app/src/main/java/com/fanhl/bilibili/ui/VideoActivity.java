@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.fanhl.bilibili.R;
-import com.fanhl.bilibili.Secret;
+import Secret;
 import com.fanhl.bilibili.rest.XmlDownloader;
 import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.rest.model.VideoM;
