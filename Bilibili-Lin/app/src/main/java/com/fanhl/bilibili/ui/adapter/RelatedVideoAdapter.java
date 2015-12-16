@@ -64,7 +64,7 @@ public class RelatedVideoAdapter extends BaseDataAdapter<RelatedVideos.RelatedVi
             super.bindData(item);
             Picasso.with(mPic.getContext())
                     .load(item.pic)
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.related_video_placeholder)
                     .fit()
                     .centerCrop()
                     .into(mPic);
