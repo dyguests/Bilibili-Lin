@@ -288,8 +288,9 @@ public class VideoActivity extends BaseActivity {
      */
     private Observable<Void> prepareVideo(Uri src) {
         return Observable.<Void>create(subscriber -> {
-            mVideoView.setVideoURI(src);
-            mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
+//            mVideoView.setVideoURI(src);
+//            mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
+            subscriber.onCompleted();
         });
     }
 
