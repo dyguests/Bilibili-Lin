@@ -234,9 +234,10 @@ public class VideoActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::prepareVideo);
         //视频弹幕同时加载后才播放
-        Observable
-                .merge(danmakuObservable, videoObservable)
-                .last()
+//        Observable
+//                .merge(danmakuObservable, videoObservable)
+//                .last()
+        danmakuObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aVoid -> {
                 }, e -> {
@@ -245,6 +246,7 @@ public class VideoActivity extends BaseActivity {
                 }, () -> {
 //                    mVideoView.start();
                     mDanmakuView.start();
+                    mCover.setVisibility(View.GONE);
                 });
     }
 
