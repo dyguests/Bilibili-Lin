@@ -116,7 +116,6 @@ public class VideoActivity extends BaseActivity {
             mDanmakuView.resume();
             mDanmakuView.seekTo((long) mLastPosition);
         }
-        //todo 看看能不能保留缓冲的视频
         if (mVideoView != null && !mVideoView.isPlaying()) {
             mVideoView.start();
             mVideoView.seekTo(mLastPosition);
@@ -234,17 +233,16 @@ public class VideoActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::prepareVideo);
         //视频弹幕同时加载后才播放
-//        Observable
-//                .merge(danmakuObservable, videoObservable)
-//                .last()
-        danmakuObservable
+        Observable
+                .merge(danmakuObservable, videoObservable)
+                .last()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aVoid -> {
                 }, e -> {
                     Snackbar.make(mMainContent, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
                 }, () -> {
-//                    mVideoView.start();
+                    mVideoView.start();
                     mDanmakuView.start();
                     mCover.setVisibility(View.GONE);
                 });
@@ -290,9 +288,8 @@ public class VideoActivity extends BaseActivity {
      */
     private Observable<Void> prepareVideo(Uri src) {
         return Observable.<Void>create(subscriber -> {
-//            mVideoView.setVideoURI(src);
-//            mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
-            subscriber.onCompleted();
+            mVideoView.setVideoURI(src);
+            mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
         });
     }
 
