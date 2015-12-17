@@ -1,12 +1,11 @@
 package com.fanhl.bilibili.ui.base;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.fanhl.bilibili.App;
-import com.fanhl.bilibili.R;
 
 /**
  * Created by fanhl on 15/12/9.
@@ -25,6 +24,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
 
         app = ((App) getApplication());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     protected App app() {

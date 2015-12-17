@@ -243,7 +243,7 @@ public class VideoActivity extends BaseActivity {
                     Snackbar.make(mMainContent, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
                 }, () -> {
-                    mVideoView.start();
+//                    mVideoView.start();
                     mDanmakuView.start();
                 });
     }
