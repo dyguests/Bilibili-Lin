@@ -5,7 +5,12 @@
              android:layout_height="200dp"
              tools:showIn="@layout/activity_video">
     <!--fixme 改成ffmpeg播放器-->
-    <VideoView
+    <!--<VideoView-->
+    <!--android:id="@+id/video_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
+    <com.fanhl.bilibili.widget.LinVideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

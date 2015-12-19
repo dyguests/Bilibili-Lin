@@ -23,8 +23,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
+import com.fanhl.bilibili.widget.LinVideoView;
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.Secret;
 import com.fanhl.bilibili.rest.XmlDownloader;
@@ -74,7 +74,7 @@ public class VideoActivity extends BaseActivity {
     @Bind(R.id.player_container)
     FrameLayout          mPlayerContainer;
     @Bind(R.id.video_view)
-    VideoView            mVideoView;
+    LinVideoView         mVideoView;
     @Bind(R.id.danmaku_view)
     DanmakuView          mDanmakuView;
     @Bind(R.id.cover)
