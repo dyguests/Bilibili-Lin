@@ -29,6 +29,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
+ * 推荐
+ * <p>
  * Created by fanhl on 15/12/9.
  */
 public class RecommendFragment extends BaseFragment {
