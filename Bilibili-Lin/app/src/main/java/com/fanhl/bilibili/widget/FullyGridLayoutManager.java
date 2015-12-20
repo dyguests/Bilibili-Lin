@@ -4,6 +4,7 @@ package com.fanhl.bilibili.widget;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
  * Why & What is modified:
  */
 public class FullyGridLayoutManager extends GridLayoutManager {
+    public static final String TAG = FullyGridLayoutManager.class.getSimpleName();
+
     public FullyGridLayoutManager(Context context, int spanCount) {
         super(context, spanCount);
     }
@@ -39,7 +42,9 @@ public class FullyGridLayoutManager extends GridLayoutManager {
         int width = 0;
         int height = 0;
         int count = getItemCount();
+        Log.d(TAG, "测试1 count:"+count);
         int span = getSpanCount();
+        Log.d(TAG, "测试1 span:"+span);
         for (int i = 0; i < count; i++) {
             measureScrapChild(recycler, i,
                     View.MeasureSpec.makeMeasureSpec(i, View.MeasureSpec.UNSPECIFIED),
@@ -61,7 +66,9 @@ public class FullyGridLayoutManager extends GridLayoutManager {
                     width = mMeasuredDimension[0];
                 }
             }
+            Log.d(TAG, "测试1 height"+height);
         }
+        Log.d(TAG, "测试1 heightAll"+height);
 
         switch (widthMode) {
             case View.MeasureSpec.EXACTLY:
@@ -94,6 +101,7 @@ public class FullyGridLayoutManager extends GridLayoutManager {
                     view.measure(childWidthSpec, childHeightSpec);
                     measuredDimension[0] = view.getMeasuredWidth() + p.leftMargin + p.rightMargin;
                     measuredDimension[1] = view.getMeasuredHeight() + p.bottomMargin + p.topMargin;
+                    Log.d(TAG, "测试1 measureScrapChild measuredDimension:"+measuredDimension[0]+","+measuredDimension[1]);
                     recycler.recycleView(view);
                 }
             } catch (Exception e) {

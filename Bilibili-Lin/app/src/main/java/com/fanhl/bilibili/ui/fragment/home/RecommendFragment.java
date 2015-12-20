@@ -138,6 +138,7 @@ public class RecommendFragment extends BaseFragment {
 //            });
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
+//            adapter.notifyDataSetChanged();
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             adapter.setOnItemClickListener((position, holder) -> {
