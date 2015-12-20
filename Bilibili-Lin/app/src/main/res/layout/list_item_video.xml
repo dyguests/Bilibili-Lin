@@ -7,12 +7,12 @@
     android:layout_height="wrap_content"
     tools:layout_width="180dp"
     tools:showIn="@layout/list_item_video_card">
+
+    <!--注: 因为 FullyGridLayoutManager 需要 ImageView[android:layout_height="180dp"]高度固定才行-->
     <ImageView
         android:id="@+id/cover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:minHeight="@dimen/list_item_video_min_height"
+        android:layout_height="@dimen/list_item_cover_height"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         tools:ignore="ContentDescription"/>

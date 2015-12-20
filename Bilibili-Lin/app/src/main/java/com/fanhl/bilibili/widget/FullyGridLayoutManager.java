@@ -98,9 +98,12 @@ public class FullyGridLayoutManager extends GridLayoutManager {
                             getPaddingLeft() + getPaddingRight(), p.width);
                     int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec,
                             getPaddingTop() + getPaddingBottom(), p.height);
+                    Log.d(TAG, "测试1 measureScrapChild p.height:"+p.height);
                     view.measure(childWidthSpec, childHeightSpec);
+                    Log.d(TAG, "测试1 measureScrapChild p.height after measure:"+p.height);
                     measuredDimension[0] = view.getMeasuredWidth() + p.leftMargin + p.rightMargin;
                     measuredDimension[1] = view.getMeasuredHeight() + p.bottomMargin + p.topMargin;
+                    Log.d(TAG, "测试1 view.getMeasuredHeight()"+view.getMeasuredHeight()+","+p.bottomMargin +","+ p.topMargin);
                     Log.d(TAG, "测试1 measureScrapChild measuredDimension:"+measuredDimension[0]+","+measuredDimension[1]);
                     recycler.recycleView(view);
                 }
