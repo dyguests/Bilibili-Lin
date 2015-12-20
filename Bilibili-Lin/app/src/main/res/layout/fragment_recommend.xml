@@ -9,8 +9,8 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:fillViewport="true"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -33,37 +33,6 @@
             <include
                 android:id="@+id/recommend"
                 layout="@layout/include_grid_common"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/accent"
-                android:maxLines="10"
-                android:minHeight="100dp"
-                android:padding="10dp"
-                android:text="这是一个轮播"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/accent"
-                android:maxLines="10"
-                android:minHeight="100dp"
-                android:padding="10dp"
-                android:text="这是一个轮播"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/accent"
-                android:maxLines="10"
-                android:minHeight="100dp"
-                android:padding="10dp"
-                android:text="这是一个轮播"/>
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
