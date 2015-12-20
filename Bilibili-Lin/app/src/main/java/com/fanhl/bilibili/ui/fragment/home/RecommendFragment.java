@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -129,18 +128,9 @@ public class RecommendFragment extends BaseFragment {
          */
         public void assignViews() {
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
-//            mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT){
-//                @Override
-//                public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
-//                    int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, View.MeasureSpec.AT_MOST);
-//                    super.onMeasure(recycler, state, widthSpec, expandSpec);
-//                }
-//            });
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
-//            adapter.notifyDataSetChanged();
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//            mRecyclerView.addItemDecoration();// FIXME: 15/12/10
             adapter.setOnItemClickListener((position, holder) -> {
                 VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;
                 if (item != null) VideoActivity.launch(activity, item);
