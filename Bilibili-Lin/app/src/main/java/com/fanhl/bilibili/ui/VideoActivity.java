@@ -24,7 +24,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fanhl.bilibili.widget.LinVideoView;
 import com.fanhl.bilibili.R;
 import com.fanhl.bilibili.Secret;
 import com.fanhl.bilibili.rest.XmlDownloader;
@@ -41,6 +40,8 @@ import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.VideoView;
 import master.flame.danmaku.controller.DrawHandler;
 import master.flame.danmaku.danmaku.model.DanmakuTimer;
 import master.flame.danmaku.danmaku.model.android.DanmakuContext;
@@ -74,7 +75,7 @@ public class VideoActivity extends BaseActivity {
     @Bind(R.id.player_container)
     FrameLayout          mPlayerContainer;
     @Bind(R.id.video_view)
-    LinVideoView         mVideoView;
+    VideoView            mVideoView;
     @Bind(R.id.danmaku_view)
     DanmakuView          mDanmakuView;
     @Bind(R.id.cover)
@@ -90,7 +91,7 @@ public class VideoActivity extends BaseActivity {
     private String            mXMLFileName;
 
     /*暂停时存放播放的位置*/
-    private int mLastPosition;
+    private long mLastPosition;
 
     public static void launch(Activity activity, VideoInfo baseData) {
         Intent intent = new Intent(activity, VideoActivity.class);
@@ -102,6 +103,7 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Vitamio.isInitialized(this);
         setContentView(R.layout.activity_video);
         ButterKnife.bind(this);
         assignViews();
@@ -114,7 +116,7 @@ public class VideoActivity extends BaseActivity {
         super.onResume();
         if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
             mDanmakuView.resume();
-            mDanmakuView.seekTo((long) mLastPosition);
+            mDanmakuView.seekTo(mLastPosition);
         }
         if (mVideoView != null && !mVideoView.isPlaying()) {
             mVideoView.start();

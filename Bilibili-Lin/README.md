@@ -21,7 +21,7 @@ ButterKnife.
 
 #问题
 
-1.未使用IjkPlayer,先暂时用Android自带的VideoView
+1.未使用IjkPlayer,先暂时用Vitamio
 
 #数据字典
 
