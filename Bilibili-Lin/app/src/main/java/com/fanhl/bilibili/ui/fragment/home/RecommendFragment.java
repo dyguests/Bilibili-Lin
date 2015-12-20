@@ -22,6 +22,7 @@ import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.VideoActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
+import com.fanhl.bilibili.widget.FullyGridLayoutManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -127,13 +128,14 @@ public class RecommendFragment extends BaseFragment {
          * See {@link RecommendFragment#assignViews()}
          */
         public void assignViews() {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT){
-                @Override
-                public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
-                    int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, View.MeasureSpec.AT_MOST);
-                    super.onMeasure(recycler, state, widthSpec, expandSpec);
-                }
-            });
+            mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
+//            mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT){
+//                @Override
+//                public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+//                    int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, View.MeasureSpec.AT_MOST);
+//                    super.onMeasure(recycler, state, widthSpec, expandSpec);
+//                }
+//            });
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
