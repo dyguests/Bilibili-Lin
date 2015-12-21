@@ -158,7 +158,7 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
-            mRecyclerView.setVerticalScrollBarEnabled(true);
+            mRecyclerView.setNestedScrollingEnabled(false);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             adapter.setOnItemClickListener((position, holder) -> {
                 if (onItemClickListener != null) onItemClickListener.onItemClick(holder);
