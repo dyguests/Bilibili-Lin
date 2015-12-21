@@ -25,7 +25,7 @@ ButterKnife.
 
 1.未使用IjkPlayer,先暂时用Vitamio
 
-2.滑动NestScrollView中的RecyclerView时,AppbarLayout不会跟着上下滑动,也没有滑动惯性.
+~~2.滑动NestScrollView中的RecyclerView时,AppbarLayout不会跟着上下滑动,也没有滑动惯性.~~     Fixed
 
 #数据字典
 
