@@ -13,6 +13,8 @@ import java.util.List;
 public class RecommendInfo {
     /*热门推荐*/
     public static final String RECOMMEND = "recommend";
+    /*番剧推荐*/
+    public static final String BANGUMI   = "bangumi_2";
 
     /**
      * code : 0
@@ -40,6 +42,15 @@ public class RecommendInfo {
     public ResultEntity getRecommend() {
         for (ResultEntity resultEntity : result) {
             if (RECOMMEND.equals(resultEntity.type)) {
+                return resultEntity;
+            }
+        }
+        return null;
+    }
+
+    public ResultEntity getBangumi() {
+        for (ResultEntity resultEntity : result) {
+            if (BANGUMI.equals(resultEntity.type)) {
                 return resultEntity;
             }
         }

@@ -45,10 +45,13 @@ public class RecommendFragment extends BaseFragment {
     TextView           mCarousel;// FIXME: 15/12/10 之后换成轮播
     @Bind(R.id.recommend)
     LinearLayout       recommendContainer;
+    @Bind(R.id.bangumi)
+    LinearLayout       bangumiContainer;
 
     private SubAreaCardViewHolder recommendViewHolder;
     /*从服务器端取得的该页面的数据*/
     private RecommendInfo         data;
+    private SubAreaCardViewHolder bangumiViewHolder;
 
 
     public static RecommendFragment newInstance() {
@@ -76,8 +79,22 @@ public class RecommendFragment extends BaseFragment {
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.refresh_array));
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
+        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "mNestedScrollView scroll");
+            }
+        });
+
         recommendViewHolder = new SubAreaCardViewHolder(getActivity(), recommendContainer);
         recommendViewHolder.assignViews();
+        recommendViewHolder.setOnItemClickListener(holder -> {
+            VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;// FIXME: 15/12/21 可能还要优化,不应该出现 VideoAdapter.ViewHolder
+            if (item != null) VideoActivity.launch(getActivity(), item);
+        });
+
+        bangumiViewHolder = new SubAreaCardViewHolder(getActivity(), bangumiContainer);
+        bangumiViewHolder.assignViews();
         recommendViewHolder.setOnItemClickListener(holder -> {
             VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;// FIXME: 15/12/21 可能还要优化,不应该出现 VideoAdapter.ViewHolder
             if (item != null) VideoActivity.launch(getActivity(), item);
@@ -107,10 +124,13 @@ public class RecommendFragment extends BaseFragment {
         data = bangumiOperationModule;
         mCarousel.setText(data.toString());
         recommendViewHolder.bindData(data.getRecommend());
+        bangumiViewHolder.bindData(data.getBangumi());
     }
 
     /**
      * 子分区列表
+     * <p>
+     * See xml source: {@link R.layout#include_grid_common}.
      */
     static class SubAreaCardViewHolder {
         public static final int SPAN_COUNT = 2;
@@ -135,8 +155,7 @@ public class RecommendFragment extends BaseFragment {
         }
 
         /**
-         * See code: {@link RecommendFragment#assignViews()},
-         * xml source: {@link R.layout#include_grid_common}.
+         * See code: {@link RecommendFragment#assignViews()}.
          */
         public void assignViews() {
             // FIXME: 15/12/21 不用button 用viewgroup
@@ -146,6 +165,7 @@ public class RecommendFragment extends BaseFragment {
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
+            mRecyclerView.setVerticalScrollBarEnabled(true);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             adapter.setOnItemClickListener((position, holder) -> {
                 if (onItemClickListener != null) onItemClickListener.onItemClick(holder);
@@ -156,10 +176,14 @@ public class RecommendFragment extends BaseFragment {
          * See {@link RecommendFragment#initData()}
          */
         public void initData() {
-
+            //初始仳时没有数据
         }
 
         public void bindData(RecommendInfo.ResultEntity resultEntity) {
+            if (resultEntity == null) {
+                Log.e(TAG, "未能取到子分区的数据.");
+                return;
+            }
             mTitle.setText(resultEntity.head.title);
             adapter.refreshItems(resultEntity.body);
 

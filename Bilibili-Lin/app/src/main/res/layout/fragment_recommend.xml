@@ -33,6 +33,9 @@
             <include
                 android:id="@+id/recommend"
                 layout="@layout/include_grid_common"/>
+            <include
+                android:id="@+id/bangumi"
+                layout="@layout/include_grid_common"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
