@@ -20,6 +20,7 @@ import com.fanhl.bilibili.rest.model.RecommendInfo;
 import com.fanhl.bilibili.rest.model.VideoInfo;
 import com.fanhl.bilibili.ui.VideoActivity;
 import com.fanhl.bilibili.ui.adapter.VideoAdapter;
+import com.fanhl.bilibili.ui.base.BaseClickableAdapter;
 import com.fanhl.bilibili.ui.base.BaseFragment;
 import com.fanhl.bilibili.widget.FullyGridLayoutManager;
 
@@ -77,6 +78,10 @@ public class RecommendFragment extends BaseFragment {
 
         recommendViewHolder = new SubAreaCardViewHolder(getActivity(), recommendContainer);
         recommendViewHolder.assignViews();
+        recommendViewHolder.setOnItemClickListener(holder -> {
+            VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;// FIXME: 15/12/21 可能还要优化,不应该出现 VideoAdapter.ViewHolder
+            if (item != null) VideoActivity.launch(getActivity(), item);
+        });
     }
 
     private void initData() {
@@ -104,6 +109,9 @@ public class RecommendFragment extends BaseFragment {
         recommendViewHolder.bindData(data.getRecommend());
     }
 
+    /**
+     * 子分区列表
+     */
     static class SubAreaCardViewHolder {
         public static final int SPAN_COUNT = 2;
 
@@ -114,26 +122,33 @@ public class RecommendFragment extends BaseFragment {
         @Bind(R.id.recycler_view)
         RecyclerView mRecyclerView;
 
-        private Activity activity;
+        OnHeaderClickListener onHeaderClickListener;
+        OnItemClickListener   onItemClickListener;
 
         private VideoAdapter adapter;
 
+        /*基本信息*/
+        private RecommendInfo.ResultEntity data;
+
         SubAreaCardViewHolder(Activity activity, View view) {
-            this.activity = activity;
             ButterKnife.bind(this, view);
         }
 
         /**
-         * See {@link RecommendFragment#assignViews()}
+         * See code: {@link RecommendFragment#assignViews()},
+         * xml source: {@link R.layout#include_grid_common}.
          */
         public void assignViews() {
+            // FIXME: 15/12/21 不用button 用viewgroup
+            mButton.setOnClickListener(v -> {
+                if (onHeaderClickListener != null && data != null) this.onHeaderClickListener.onHeaderClick(data);
+            });
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
             adapter = new VideoAdapter(mRecyclerView);
             mRecyclerView.setAdapter(adapter);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             adapter.setOnItemClickListener((position, holder) -> {
-                VideoInfo item = ((VideoAdapter.ViewHolder) holder).item;
-                if (item != null) VideoActivity.launch(activity, item);
+                if (onItemClickListener != null) onItemClickListener.onItemClick(holder);
             });
         }
 
@@ -145,7 +160,26 @@ public class RecommendFragment extends BaseFragment {
         }
 
         public void bindData(RecommendInfo.ResultEntity resultEntity) {
+            mTitle.setText(resultEntity.head.title);
             adapter.refreshItems(resultEntity.body);
+
+            data = resultEntity;
+        }
+
+        public void setOnHeaderClickListener(OnHeaderClickListener onHeaderClickListener) {
+            this.onHeaderClickListener = onHeaderClickListener;
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        public interface OnHeaderClickListener {
+            void onHeaderClick(RecommendInfo.ResultEntity data);
+        }
+
+        public interface OnItemClickListener {
+            void onItemClick(BaseClickableAdapter.ClickableViewHolder holder);
         }
     }
 }

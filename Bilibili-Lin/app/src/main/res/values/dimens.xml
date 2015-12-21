@@ -12,5 +12,5 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="touch_raise">6dp</dimen>
-    <dimen name="list_item_cover_height">120dp</dimen>
+    <dimen name="list_item_cover_height">180dp</dimen>
 </resources>

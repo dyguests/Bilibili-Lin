@@ -4,7 +4,7 @@
 
 ButterKnife.
 
-参考:[RecyclerView和ScrollView嵌套使用](http://www.bubuko.com/infodetail-777462.html)
+参考:[RecyclerView和ScrollView嵌套使用](http://www.bubuko.com/infodetail-777462.html),视频参考[Vitamio](https://github.com/yixia/VitamioBundle).
 
 #进度
 
