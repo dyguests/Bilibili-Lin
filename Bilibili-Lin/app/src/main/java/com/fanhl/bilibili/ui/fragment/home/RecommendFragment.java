@@ -79,13 +79,6 @@ public class RecommendFragment extends BaseFragment {
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getIntArray(R.array.refresh_array));
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
-        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.d(TAG, "mNestedScrollView scroll");
-            }
-        });
-
         recommendViewHolder = new SubAreaCardViewHolder(getActivity(), recommendContainer);
         recommendViewHolder.assignViews();
         recommendViewHolder.setOnItemClickListener(holder -> {
