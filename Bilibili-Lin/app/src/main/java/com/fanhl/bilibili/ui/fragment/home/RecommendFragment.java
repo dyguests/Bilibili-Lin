@@ -153,7 +153,7 @@ public class RecommendFragment extends BaseFragment {
          * See code: {@link RecommendFragment#assignViews()}.
          */
         public void assignViews() {
-            header.setOnClickListener(v -> {
+            mButton.setOnClickListener(v -> {
                 if (onHeaderClickListener != null && data != null) this.onHeaderClickListener.onHeaderClick(data);
             });
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
