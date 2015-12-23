@@ -96,6 +96,7 @@ public class RelatedVideosFragment extends BaseFragment {
         if (!mSwipeRefreshLayout.isRefreshing()) mSwipeRefreshLayout.setRefreshing(true);
         //取得视频页面信息(视频简介,视频相关...)
         app().getClient().getVideoService().relatedVideos()
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(relatedVideos -> {

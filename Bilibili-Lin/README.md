@@ -21,6 +21,10 @@ ButterKnife.
 | drama |
 | bar   |
 
+#日程
+
+1.加上RcLifecycle
+
 #问题
 
 1.未使用IjkPlayer,先暂时用Vitamio
