@@ -41,7 +41,9 @@ import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 import master.flame.danmaku.controller.DrawHandler;
 import master.flame.danmaku.danmaku.model.DanmakuTimer;
@@ -93,6 +95,20 @@ public class VideoActivity extends BaseActivity {
 
     /*暂停时存放播放的位置*/
     private long mLastPosition;
+
+    //播放完成
+    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            if (mDanmakuView != null && mDanmakuView.isPrepared()) {
+                mDanmakuView.pause();
+                mDanmakuView.seekTo((long) 0);
+
+            }
+            mVideoView.pause();
+        }
+    };
+    private MediaController mediaController;
 
     public static void launch(Activity activity, VideoInfo baseData) {
         Intent intent = new Intent(activity, VideoActivity.class);
@@ -195,7 +211,10 @@ public class VideoActivity extends BaseActivity {
         mFab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
-
+//        mVideoView.setOnInfoListener(onInfoListener);
+//        mVideoView.setOnSeekCompleteListener(onSeekCompleteListener);
+//        mVideoView.setOnCompletionListener(onCompletionListener);
+//        mVideoView.setOnControllerEventsListener(onControllerEventsListener);
     }
 
     private void initData() {
