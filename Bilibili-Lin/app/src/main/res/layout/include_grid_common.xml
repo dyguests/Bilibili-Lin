@@ -27,14 +27,14 @@
             android:text="版块名称"
             tools:ignore="RtlHardcoded"/>
 
-        <Button
+        <TextView
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:clickable="false"
             android:drawableLeft="@mipmap/ic_launcher"
+            android:gravity="center_vertical"
             android:text="按钮"
             tools:ignore="RtlHardcoded"/>
     </RelativeLayout>
