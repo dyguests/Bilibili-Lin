@@ -206,7 +206,7 @@ public class VideoActivity extends BaseActivity {
 
     private void refreshData() {
         //取得视频播放信息
-        Observable<VideoM> videoMObservable = app().getClient().getVideoService().getVideoApiRx("3337029")
+        Observable<VideoM> videoMObservable = app().getClient().getVideoService().getVideoApiRx(baseData.param)
                 .subscribeOn(Schedulers.io());
         //弹幕
         Observable<Void> danmakuObservable = videoMObservable
@@ -217,6 +217,7 @@ public class VideoActivity extends BaseActivity {
                     return "http://www.bilibilijj.com/ashx/Barrage.ashx?f=true&av=&p=&s=xml&cid=" + CID + "&n=" + CID;
                 })
                 .flatMap(string -> {
+                    Log.d(TAG, "danmaku url:" + string);
                     if ("error".equals(string)) return Observable.error(new Exception("视频不存在或不能播放."));
                     return XmlDownloader.download(string);
                 })
