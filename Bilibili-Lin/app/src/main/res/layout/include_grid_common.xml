@@ -9,8 +9,10 @@
     tools:showIn="@layout/fragment_recommend">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:clickable="false"
             android:drawableLeft="@mipmap/ic_launcher"
             android:text="按钮"
             tools:ignore="RtlHardcoded"/>

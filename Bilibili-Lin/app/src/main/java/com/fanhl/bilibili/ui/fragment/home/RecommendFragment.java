@@ -128,7 +128,8 @@ public class RecommendFragment extends BaseFragment {
      */
     static class SubAreaCardViewHolder {
         public static final int SPAN_COUNT = 2;
-
+        @Bind(R.id.header)
+        ViewGroup    header;
         @Bind(R.id.title)
         TextView     mTitle;
         @Bind(R.id.button)
@@ -152,8 +153,7 @@ public class RecommendFragment extends BaseFragment {
          * See code: {@link RecommendFragment#assignViews()}.
          */
         public void assignViews() {
-            // FIXME: 15/12/21 不用button 用viewgroup
-            mButton.setOnClickListener(v -> {
+            header.setOnClickListener(v -> {
                 if (onHeaderClickListener != null && data != null) this.onHeaderClickListener.onHeaderClick(data);
             });
             mRecyclerView.setLayoutManager(new FullyGridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
