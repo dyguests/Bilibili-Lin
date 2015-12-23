@@ -7,12 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.fanhl.bilibili.App;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 /**
  * Created by fanhl on 15/12/9.
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private App app;
 

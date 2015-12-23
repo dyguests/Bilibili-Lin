@@ -238,7 +238,7 @@ public class VideoActivity extends BaseActivity {
         Observable
                 .merge(danmakuObservable, videoObservable)
                 .last()
-                .compose(bindToLifecycle())
+//                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aVoid -> {
                 }, e -> {
