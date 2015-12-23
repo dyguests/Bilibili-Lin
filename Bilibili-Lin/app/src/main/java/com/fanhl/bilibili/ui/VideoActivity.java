@@ -218,7 +218,6 @@ public class VideoActivity extends BaseActivity {
                     if ("error".equals(string)) return Observable.error(new Exception("视频不存在或不能播放."));
                     return XmlDownloader.download(string);
                 })
-                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::prepareDanmaku);
         //视频
@@ -233,14 +232,13 @@ public class VideoActivity extends BaseActivity {
                     return app().getClient().getVideoService().getVideoApi("json", cid, "mp4", 4, Secret.App_Key);
                 })
                 .map(videoHDM -> Uri.parse(videoHDM.getDurl().get(0).getUrl()))
-                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::prepareVideo);
         //视频弹幕同时加载后才播放
         Observable
                 .merge(danmakuObservable, videoObservable)
                 .last()
-                .compose(bindToLifecycle())// FIXME: 15/12/23 需要写多个吗?
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aVoid -> {
                 }, e -> {
