@@ -40,3 +40,4 @@ ButterKnife.
 | related videos        | 相关视频 |    
 |  video responses      | 视频回复 |    
 |    author profiles    | 作者个人信息 | 
+|   region   | 分区 | 

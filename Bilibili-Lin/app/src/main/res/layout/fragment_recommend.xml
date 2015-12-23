@@ -30,11 +30,102 @@
                 android:padding="10dp"
                 android:text="这是一个轮播"/>
 
+            <!--热门推荐-->
             <include
                 android:id="@+id/recommend"
                 layout="@layout/include_grid_common"/>
+            <!--番剧推荐-->
             <include
                 android:id="@+id/bangumi"
+                layout="@layout/include_grid_common"/>
+            <!--番剧推荐 fixme 合并到 番剧推荐 里-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/accent"
+                android:maxLines="10"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:text="新番放送 + 番剧索引"/>
+
+            <!--直播-->
+            <!--fixme 使用另一种共通-->
+            <include
+                android:id="@+id/live"
+                layout="@layout/include_grid_common"/>
+
+            <!--排行榜-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/accent"
+                android:maxLines="10"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:text="排行榜啥的"/>
+
+            <!--动画区-->
+            <include
+                android:id="@+id/anime"
+                layout="@layout/include_grid_common"/>
+
+            <!--音乐区-->
+            <include
+                android:id="@+id/music"
+                layout="@layout/include_grid_common"/>
+
+            <!--话题-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/accent"
+                android:maxLines="10"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:text="话题"/>
+
+            <!--舞蹈区-->
+            <include
+                android:id="@+id/dance"
+                layout="@layout/include_grid_common"/>
+
+            <!--游戏区-->
+            <include
+                android:id="@+id/game"
+                layout="@layout/include_grid_common"/>
+
+            <!--鬼畜区-->
+            <include
+                android:id="@+id/kichiku"
+                layout="@layout/include_grid_common"/>
+
+            <!--科技区-->
+            <include
+                android:id="@+id/technology"
+                layout="@layout/include_grid_common"/>
+
+            <!--娱乐区-->
+            <include
+                android:id="@+id/entertainment"
+                layout="@layout/include_grid_common"/>
+
+            <!--话题-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/accent"
+                android:maxLines="10"
+                android:minHeight="100dp"
+                android:padding="10dp"
+                android:text="话题"/>
+
+            <!--电视剧区-->
+            <include
+                android:id="@+id/drama"
+                layout="@layout/include_grid_common"/>
+            <!--电影区-->
+            <include
+                android:id="@+id/movie"
                 layout="@layout/include_grid_common"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
