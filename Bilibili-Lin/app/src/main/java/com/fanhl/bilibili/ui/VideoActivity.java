@@ -248,6 +248,7 @@ public class VideoActivity extends BaseActivity {
                     Snackbar.make(mMainContent, e.getMessage(), Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
                 }, () -> {
+                    Log.d(TAG, "start to player!!!");
                     mVideoView.start();
                     mDanmakuView.start();
                     mCover.setVisibility(View.GONE);
@@ -261,6 +262,7 @@ public class VideoActivity extends BaseActivity {
      * @return
      */
     public Observable<Void> prepareDanmaku(final File xmlFile) {
+        Log.d(TAG, "prepareDanmaku:" + xmlFile);
         return Observable.<Void>create(subscriber -> {
             try {
                 mDanmakuParser = DanmakuParser.createParser(xmlFile);
@@ -293,6 +295,7 @@ public class VideoActivity extends BaseActivity {
      * @return
      */
     private Observable<Void> prepareVideo(Uri src) {
+        Log.d(TAG, "prepareVideo:" + src);
         return Observable.<Void>create(subscriber -> {
             mVideoView.setVideoURI(src);
             mVideoView.setOnPreparedListener(mp -> subscriber.onCompleted());
