@@ -13,8 +13,6 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
 
-    private App app;
-
     @Override
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,8 +22,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 //            getWindow().setStatusBarColor(getResources().getColor(R.color.primary));
 //            getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
 //        }
-
-        app = ((App) getApplication());
     }
 
     @Override
@@ -39,6 +35,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected App app() {
-        return app;
+        return ((App) getApplication());
     }
 }

@@ -1,5 +1,6 @@
 package com.fanhl.bilibili.rest.model;
 
+import com.fanhl.util.GsonUtil;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -21,4 +22,9 @@ public class VideoInfo {
     public String style;
     public String title;
     public int    width;
+
+    @Override
+    public String toString() {
+        return GsonUtil.json(this);
+    }
 }

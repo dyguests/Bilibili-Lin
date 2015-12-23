@@ -15,6 +15,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -200,6 +201,7 @@ public class VideoActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         baseData = GsonUtil.obj(intent.getStringExtra(EXTRA_VIDEO_INFO_DATA), VideoInfo.class);
+        Log.d(TAG, "baseData:" + baseData);
     }
 
     private void refreshData() {
