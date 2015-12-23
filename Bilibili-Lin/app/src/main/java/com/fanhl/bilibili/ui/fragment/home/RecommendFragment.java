@@ -101,7 +101,7 @@ public class RecommendFragment extends BaseFragment {
     private void refreshData() {
         if (!mSwipeRefreshLayout.isRefreshing()) mSwipeRefreshLayout.setRefreshing(true);
         app().getClient().getBangumiService().refreshRecommend()
-//                .compose(bindToLifecycle())
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bangumiOperationModule -> {

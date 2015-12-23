@@ -43,11 +43,9 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
     //RxLifecycle
-//    compile 'com.trello:rxlifecycle:0.4.0'
-//    // If you want pre-written Activities and Fragments you can subclass as providers
-//    compile 'com.trello:rxlifecycle-components:0.4.0'
-//    // If you want to use Navi for providers
-//    compile 'com.trello:rxlifecycle-navi:0.4.0'
+    compile 'com.trello:rxlifecycle:0.4.0'
+    // If you want pre-written Activities and Fragments you can subclass as providers
+    compile 'com.trello:rxlifecycle-components:0.4.0'
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     //danmaku
